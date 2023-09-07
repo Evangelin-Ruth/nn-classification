@@ -65,9 +65,9 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Dropout
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.callbacks import EarlyStopping
-```
+
 # Read the data
-```
+
 df = pd.read_csv("customers.csv")
 df.columns
 df.dtypes
@@ -82,9 +82,9 @@ df_cleaned = df.dropna(axis=0)
 df_cleaned.isnull().sum()
 df_cleaned.shape
 df_cleaned.dtypes
-```
+
 # Encoding
-```
+
 df_cleaned['Gender'].unique()
 df_cleaned['Ever_Married'].unique()  
 df_cleaned['Graduated'].unique()
@@ -115,9 +115,8 @@ le = LabelEncoder()
 df1['Segmentation'] = le.fit_transform(df1['Segmentation'])
 
 df1.dtypes
-```
+
 # Visualizing the Data
-```
 corr = df1.corr()
 
 sns.heatmap(corr, 
@@ -130,9 +129,9 @@ sns.distplot(df1['Age'])
 
 plt.figure(figsize=(10,6))
 sns.scatterplot(x='Family_Size',y='Age',data=df1)
-```
+
 # Assingn X and Y values
-```
+
 scale = MinMaxScaler()
 scale.fit(df1[["Age"]]) # Fetching Age column alone
 df1[["Age"]] = scale.transform(df1[["Age"]])
@@ -154,9 +153,9 @@ y = ohe.transform(y1).toarray()
 
 from sklearn.model_selection import train_test_split
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=1/3,random_state=50)
-```
+
 # Build the Model
-```
+
 ai = Sequential([Dense(75,input_shape = [8]),
                  Dense(64,activation="relu"),
                  Dense(49,activation="relu"),
@@ -178,9 +177,9 @@ ai.fit( x = x_train, y = y_train,
         validation_data=(x_test,y_test),
         callbacks = [early_stop]
         )
-```
+
 # Analyze the model
-```
+
 metrics = pd.DataFrame(ai.history.history)
 metrics.head()
 
@@ -197,7 +196,7 @@ y_truevalue.shape
 conf(y_truevalue,x_pred)
 
 print(report(y_truevalue,x_pred))
-```
+
 # Save the model
 
 import pickle
@@ -223,9 +222,8 @@ x_prediction = np.argmax(ai_brain.predict(x_test[1:2,:]), axis=1)
 print(x_prediction)
 
 print(le.inverse_transform(x_prediction))
-## Dataset Information
+```
 
-Include screenshot of the dataset
 
 ## Dataset Information
 
